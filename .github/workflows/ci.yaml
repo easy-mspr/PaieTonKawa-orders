@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+  pull-request:
+    branches: develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Run build
+      run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: harmon758/postgresql-action@v1
+      with:
+      postgresql version: '16'
+    - uses: @actions/checkout@v2
+    - name: Install modules
+      run: npm install
+    - name: Run tests
+      run: npm test
